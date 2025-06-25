@@ -572,19 +572,15 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-white">
-      <header className="absolute top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+      <header className="absolute top-0 left-0 right-0 z-50 bg-white/20 backdrop-blur-xs border-gray-100">
         <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
           <div className="flex items-center gap-3" data-aos="fade-right">
-            <Home className="w-6 h-6 text-black" />
-            <h1 className="text-lg font-medium text-black">
+            <Home className="w-6 h-6 text-white" />
+            <h1 className="text-lg font-medium text-white">
               Plastymat Residences
             </h1>
           </div>
-          <Button
-            variant="outline"
-            className="border-black text-black hover:bg-black hover:text-white"
-            data-aos="fade-left"
-          >
+          <Button variant="ghost" className="text-white border ">
             <Phone className="w-4 h-4 mr-2" />
             Kontakt
           </Button>
