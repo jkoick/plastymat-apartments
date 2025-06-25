@@ -211,7 +211,11 @@ const HeroCarousel = memo(function HeroCarousel() {
 
   useEffect(() => {
     startTimer();
-    return () => timerRef.current && clearInterval(timerRef.current);
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
   }, []);
 
   const next = () => {
