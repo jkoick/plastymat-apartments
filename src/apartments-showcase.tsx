@@ -269,13 +269,13 @@ const HeroCarousel = memo(function HeroCarousel() {
 
       <button
         onClick={prev}
-        className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30"
+        className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full sm:flex hidden items-center justify-center text-white hover:bg-white/30"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={next}
-        className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30"
+        className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full sm:flex hidden items-center justify-center text-white hover:bg-white/30"
       >
         <ChevronRight className="w-6 h-6" />
       </button>
@@ -315,37 +315,44 @@ const apartment2Bed = {
     {
       src: "/byt1_3.png",
       title: "Obývacia izba",
-      span: "col-span-3 row-span-2",
+      desktopSpan: "col-span-3 row-span-2",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt1_6.png",
       title: "Obývacia izba",
-      span: "col-span-2 row-span-2",
+      desktopSpan: "col-span-2 row-span-2",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt1_7.png",
       title: "Kúpeľňa",
-      span: "col-span-1 row-span-1",
+      desktopSpan: "col-span-1 row-span-1",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt1_1.png",
       title: "Hlavná spálňa",
-      span: "col-span-1 row-span-1",
+      desktopSpan: "col-span-1 row-span-1",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt1_5.png",
       title: "Spálňa s výhľadom",
-      span: "col-span-2 row-span-1",
+      desktopSpan: "col-span-2 row-span-1",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt1_4.png",
       title: "Chodba",
-      span: "col-span-1 row-span-1",
+      desktopSpan: "col-span-1 row-span-1",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt1_8.png",
       title: "Kúpeľňa",
-      span: "col-span-3 row-span-1",
+      desktopSpan: "col-span-3 row-span-1",
+      mobileSpan: "col-span-3",
     },
   ],
 };
@@ -370,27 +377,32 @@ const apartment3Bed = {
     {
       src: "/byt2_3.png",
       title: "Kuchyňa a obývačka",
-      span: "col-span-2 row-span-2",
+      desktopSpan: "col-span-2 row-span-2",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt2_6.png",
       title: "Spálňa s office",
-      span: "col-span-1 row-span-1",
+      desktopSpan: "col-span-1 row-span-1",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt2_8.png",
       title: "Hlavná kúpeľňa",
-      span: "col-span-1 row-span-2",
+      desktopSpan: "col-span-1 row-span-2",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt2_10.png",
       title: "Hlavná spálňa",
-      span: "col-span-2 row-span-1",
+      desktopSpan: "col-span-2 row-span-1",
+      mobileSpan: "col-span-3",
     },
     {
       src: "/byt2_9.png",
       title: "Vstupná chodba",
-      span: "col-span-1 row-span-1",
+      desktopSpan: "col-span-1 row-span-1",
+      mobileSpan: "col-span-3",
     },
   ],
 };
@@ -405,7 +417,7 @@ const ApartmentShowcase = ({
       <div className="text-center mb-16" data-aos="fade-up">
         <h2 className="text-4xl text-black mb-6">{apartment.title}</h2>
         <div className="flex justify-center items-center gap-4 mb-8">
-          <div className="text-center flex items-center gap-1">
+          <div className="text-center flex flex-col-reverse sm:flex-row items-center gap-1">
             <div className="text-sm text-gray-600 mt-2">Od</div>
             <div className="text-3xl font-light text-black">
               {apartment.price}
@@ -443,7 +455,7 @@ const ApartmentShowcase = ({
         >
           <div className="bg-white rounded-lg p-8 shadow-sm border h-full">
             <h3 className="text-2xl font-light text-black mb-6">Pôdorys</h3>
-            <div className="aspect-[4/3] relative mb-6">
+            <div className="relative mb-6">
               <img
                 loading="lazy"
                 src={apartment.floorPlan || "/placeholder.svg"}
@@ -503,27 +515,105 @@ const ApartmentShowcase = ({
         </div>
 
         <div className="lg:col-span-3" data-aos="fade-up" data-aos-delay="400">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 auto-rows-[200px]">
-            {apartment.gallery.map((image, index) => (
-              <div
-                key={index}
-                className={`${image.span} relative rounded-lg overflow-hidden group cursor-pointer`}
-                data-aos="zoom-in"
-                data-aos-delay={index * 100 + 500}
-                onClick={() => openLightbox(apartment.gallery, index)}
-              >
-                <img
-                  loading="lazy"
-                  src={image.src || "/placeholder.svg"}
-                  alt={image.title}
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
-                <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="text-sm font-medium">{image.title}</div>
-                </div>
+          <div className="mt-8">
+            <h2 className="text-2xl font-light text-black mb-8 text-center">
+              Galéria interiéru
+            </h2>
+
+            <div className="block md:hidden">
+              <div className="grid grid-cols-2 gap-3">
+                {apartment.gallery.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`${image.mobileSpan} relative aspect-square rounded-lg overflow-hidden group cursor-pointer`}
+                    data-aos="zoom-in"
+                    data-aos-delay={index * 100 + 500}
+                    onClick={() => openLightbox(apartment.gallery, index)}
+                  >
+                    <img
+                      loading="lazy"
+                      src={image.src || "/placeholder.svg"}
+                      alt={image.title}
+                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                    <div className="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="text-xs font-medium">{image.title}</div>
+                    </div>
+                    {/* Click indicator */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                        <Maximize className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Tablet Gallery - 3-column grid */}
+            <div className="hidden md:block lg:hidden">
+              <div className="grid grid-cols-3 gap-4">
+                {apartment.gallery.map((image, index) => (
+                  <div
+                    key={index}
+                    className="relative aspect-[4/3] rounded-lg overflow-hidden group cursor-pointer"
+                    data-aos="zoom-in"
+                    data-aos-delay={index * 100 + 500}
+                    onClick={() => openLightbox(apartment.gallery, index)}
+                  >
+                    <img
+                      loading="lazy"
+                      src={image.src || "/placeholder.svg"}
+                      alt={image.title}
+                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                    <div className="absolute bottom-3 left-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="text-sm font-medium">{image.title}</div>
+                    </div>
+                    {/* Click indicator */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                        <Maximize className="w-5 h-5 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Desktop Gallery - Complex masonry grid */}
+            <div className="hidden lg:block">
+              <div className="grid grid-cols-6 gap-4 auto-rows-[200px]">
+                {apartment.gallery.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`${image.desktopSpan} relative rounded-lg overflow-hidden group cursor-pointer`}
+                    data-aos="zoom-in"
+                    data-aos-delay={index * 100 + 500}
+                    onClick={() => openLightbox(apartment.gallery, index)}
+                  >
+                    <img
+                      loading="lazy"
+                      src={image.src || "/placeholder.svg"}
+                      alt={image.title}
+                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                    <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="text-sm font-medium">{image.title}</div>
+                    </div>
+
+                    <div className="absolute inset-0 hidden sm:flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                        <Maximize className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -575,7 +665,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <header className="absolute top-0 left-0 right-0 z-50 bg-white/20 backdrop-blur-xs border-gray-100">
         <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
           <div className="flex items-center gap-3" data-aos="fade-right">
@@ -584,9 +674,9 @@ export default function Page() {
               Plastymat Residences
             </h1>
           </div>
-          <Button variant="ghost" className="text-white border ">
-            <Phone className="w-4 h-4 mr-2" />
-            Kontakt
+          <Button variant="ghost" className="text-white sm:border ">
+            <Phone className="w-4 h-4 sm:mr-2" />
+            <span className="sm:block hidden">Kontakt</span>
           </Button>
         </div>
       </header>
@@ -632,6 +722,14 @@ export default function Page() {
               <div className="text-gray-600">Rok dokončenia</div>
             </div>
           </div>
+          <img
+            data-aos="fade-left"
+            data-aos-delay="100"
+            loading="lazy"
+            src="/sirava2.jpg"
+            alt="sirava"
+            className="w-full h-full object-cover rounded-lg"
+          />
         </div>
       </section>
 
@@ -704,6 +802,15 @@ export default function Page() {
       </section>
 
       <section className="py-24 bg-white">
+        <div className="text-center mb-16" data-aos="fade-up">
+          <h2 className="text-4xl font-light text-black mb-6">
+            Lokalita projektu
+          </h2>
+          <p className="text-lg text-gray-600">
+            Pokojná zóna s výbornou dostupnosťou a občianskou vybavenosťou v
+            okolí.
+          </p>
+        </div>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.2177810120975!2d21.829456576416973!3d48.87312477133414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473eca526192f4b9%3A0x186efe88c040c2f3!2zS2Fzw6FyZW5za8OhIDIzMSwgMDcyIDIyIFN0csOhxb5za2U!5e0!3m2!1ssk!2ssk!4v1750766700766!5m2!1ssk!2ssk"
           width="600"
