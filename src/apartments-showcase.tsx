@@ -1,8 +1,17 @@
 "use client";
 
-import { Maximize, Users, Calendar, Bed, Bath, Square } from "lucide-react";
+import {
+  Maximize,
+  Users,
+  Calendar,
+  Bed,
+  Bath,
+  Square,
+  ExternalLink,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCallback } from "react";
+import Link from "next/link";
 
 type ImageInfo = {
   src: string;
@@ -90,6 +99,17 @@ export default function ApartmentShowcase({
                   alt={`${apartment.title} Floor Plan`}
                   className="object-cover rounded-lg w-full h-full"
                 />
+                <Link
+                  className="absolute right-0 top-0 flex items-center gap-1"
+                  href="/lifestar-podorys.pdf"
+                  target="_blank"
+                  passHref={true}
+                >
+                  <Button>
+                    Pozrieť plán
+                    <ExternalLink size={16} />
+                  </Button>
+                </Link>
               </div>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
@@ -137,7 +157,7 @@ export default function ApartmentShowcase({
                 </div>
               </div>
               <Button className="w-full mt-6 bg-black hover:bg-gray-800 text-white">
-                Naplánovať obhliadku
+                <a href="#kontakt">Naplánovať obhliadku</a>
               </Button>
             </div>
           </div>

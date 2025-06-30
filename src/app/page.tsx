@@ -308,7 +308,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-gray-50">
+      <section id="apartmany" className="bg-gray-50">
         <ApartmentShowcase
           openLightbox={openLightbox}
           apartment={apartment2Bed}
@@ -488,7 +488,7 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="py-16 bg-black text-white">
+      <footer id="kontakt" className="py-16 bg-black text-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12" data-aos="fade-up">
             <div>

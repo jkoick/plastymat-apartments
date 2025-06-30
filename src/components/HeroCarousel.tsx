@@ -95,10 +95,10 @@ const HeroCarousel = memo(function HeroCarousel() {
           <p className="text-lg mb-12 opacity-80">{slides[index].subtitle}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary">
-              Zobraziť byty
+              <a href="#apartmany">Zobraziť byty</a>
             </Button>
             <Button size="lg" variant="default">
-              Naplánovať obhliadku
+              <a href="#kontakt">Naplánovať obhliadku</a>
             </Button>
           </div>
         </div>
