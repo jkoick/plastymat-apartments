@@ -6,9 +6,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lakeside Residences - Premium Waterfront Living",
+  title: "Rezidencia Lifestar - Prémiové bývanie pri vode",
   description:
-    "Experience modern luxury in our thoughtfully designed apartments featuring panoramic lake views, premium finishes, and contemporary amenities.",
+    "Zažite moderný luxus v našich premyslene navrhnutých apartmánoch s panoramatickým výhľadom na jazero, prémiovými povrchmi a modernými vybaveniami.",
 };
 
 export default function RootLayout({
