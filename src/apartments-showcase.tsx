@@ -451,7 +451,7 @@ const ApartmentShowcase = ({
         <div
           className="lg:col-span-2"
           data-aos="fade-right"
-          data-aos-delay="200"
+          data-aos-delay="100"
         >
           <div className="bg-white rounded-lg p-8 shadow-sm border h-full">
             <h3 className="text-2xl font-light text-black mb-6">Pôdorys</h3>
@@ -492,7 +492,7 @@ const ApartmentShowcase = ({
         <div
           className="lg:col-span-1"
           data-aos="fade-left"
-          data-aos-delay="300"
+          data-aos-delay="100"
         >
           <div className="bg-white rounded-lg p-8 shadow-sm border h-full flex flex-col justify-between">
             <div>
@@ -540,7 +540,6 @@ const ApartmentShowcase = ({
                     <div className="absolute bottom-2 left-2 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="text-xs font-medium">{image.title}</div>
                     </div>
-                    {/* Click indicator */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                         <Maximize className="w-4 h-4 text-white" />
@@ -551,7 +550,6 @@ const ApartmentShowcase = ({
               </div>
             </div>
 
-            {/* Tablet Gallery - 3-column grid */}
             <div className="hidden md:block lg:hidden">
               <div className="grid grid-cols-3 gap-4">
                 {apartment.gallery.map((image, index) => (
@@ -583,7 +581,6 @@ const ApartmentShowcase = ({
               </div>
             </div>
 
-            {/* Desktop Gallery - Complex masonry grid */}
             <div className="hidden lg:block">
               <div className="grid grid-cols-6 gap-4 auto-rows-[200px]">
                 {apartment.gallery.map((image, index) => (
@@ -665,10 +662,14 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div className="min-h-screen bg-white">
       <header className="absolute top-0 left-0 right-0 z-50 bg-white/20 backdrop-blur-xs border-gray-100">
         <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
-          <div className="flex items-center gap-3" data-aos="fade-right">
+          <div
+            className="flex items-center gap-3"
+            data-aos="fade-right"
+            data-aos-delay="100"
+          >
             <Home className="w-6 h-6 text-white" />
             <h1 className="text-lg font-medium text-white">
               Plastymat Residences
@@ -708,7 +709,7 @@ export default function Page() {
             <div
               className="text-center"
               data-aos="fade-up"
-              data-aos-delay="200"
+              data-aos-delay="100"
             >
               <div className="text-3xl font-light text-black mb-2">2–3</div>
               <div className="text-gray-600">Možnosti spální</div>
@@ -716,7 +717,7 @@ export default function Page() {
             <div
               className="text-center"
               data-aos="fade-up"
-              data-aos-delay="300"
+              data-aos-delay="100"
             >
               <div className="text-3xl font-light text-black mb-2">2025</div>
               <div className="text-gray-600">Rok dokončenia</div>
@@ -818,7 +819,7 @@ export default function Page() {
           loading="lazy"
           className="w-full max-w-6xl mx-auto grayscale shadow-sm rounded-sm border"
           data-aos="fade-up"
-          data-aos-delay="200"
+          data-aos-delay="100"
         ></iframe>
       </section>
 
@@ -836,7 +837,7 @@ export default function Page() {
           <Card
             className="bg-white shadow-sm border"
             data-aos="fade-up"
-            data-aos-delay="200"
+            data-aos-delay="100"
           >
             <CardContent className="p-8">
               <form className="space-y-6">
@@ -960,7 +961,7 @@ export default function Page() {
           <div
             className="border-t border-gray-800 mt-12 pt-8 text-center"
             data-aos="fade-up"
-            data-aos-delay="200"
+            data-aos-delay="100"
           >
             <p className="text-gray-400">
               © 2025 Premium Developments Ltd. Všetky práva vyhradené.
