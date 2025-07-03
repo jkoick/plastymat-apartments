@@ -15,6 +15,8 @@ import {
   Thermometer,
   AirVent,
   Sun,
+  Heart,
+  Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -34,28 +36,79 @@ import HeroCarousel from "@/components/HeroCarousel";
 import ApartmentShowcase, { Apartment } from "@/apartments-showcase";
 
 const apartment2Bed: Apartment = {
-  title: "2-izbová rezidencia",
-  price: "€185 000",
-  size: "75 m²",
+  title: "2-izbový apartmán",
+  price: "cena dohodou",
+  size: "od 57 m²",
   bedrooms: 2,
   bathrooms: 1,
-  available: 5,
-  floorPlan: "/byt1_3poschodie_pôdorys_page-0001.jpg",
+  available: 4,
+  floorPlan: "/byt1_3.png",
   features: [
-    "Panoramatické výhľady na jazero",
-    "Prémiové kuchynské spotrebiče",
-    "Vstavané šatníky",
-    "Súkromný balkón",
-    "Skladový priestor v cene",
-    "Podlahové kúrenie",
+    "Balkón",
+    "Podlahové teplovodné kúrenie",
+    "Tepelné čerpadlo",
+    "Centrálna rekuperácia pre apartmán",
+    "Klimatizácia",
+    "Možnosť holobytu alebo štandardu",
   ],
   gallery: [
     {
-      src: "/byt1_3.png",
+      src: "/byt1_6.png",
       title: "Obývacia izba",
-      desktopSpan: "col-span-3 row-span-2",
+      desktopSpan: "col-span-2 row-span-2",
       mobileSpan: "col-span-3",
     },
+    {
+      src: "/byt1_7.png",
+      title: "Kúpeľňa",
+      desktopSpan: "col-span-1 row-span-1",
+      mobileSpan: "col-span-3",
+    },
+    {
+      src: "/byt1_1.png",
+      title: "Hlavná spálňa",
+      desktopSpan: "col-span-1 row-span-1",
+      mobileSpan: "col-span-3",
+    },
+    {
+      src: "/byt1_5.png",
+      title: "Spálňa s výhľadom",
+      desktopSpan: "col-span-2 row-span-1",
+      mobileSpan: "col-span-3",
+    },
+    {
+      src: "/byt1_4.png",
+      title: "Chodba",
+      desktopSpan: "col-span-1 row-span-1",
+      mobileSpan: "col-span-3",
+    },
+    {
+      src: "/byt1_8.png",
+      title: "Kúpeľňa",
+      desktopSpan: "col-span-3 row-span-1",
+      mobileSpan: "col-span-3",
+    },
+  ],
+};
+
+const apartment25Bed: Apartment = {
+  title: "2.5-izbový apartmán",
+  price: "cena dohodou",
+  size: "od 64 m²",
+  bedrooms: 2,
+  bathrooms: 1,
+  available: 3,
+  floorPlan: "/byt1_3.png",
+  features: [
+    "Balkón",
+    "Podlahové teplovodné kúrenie",
+    "Tepelné čerpadlo",
+    "Centrálna rekuperácia pre apartmán",
+    "Klimatizácia",
+    "Možnosť holobytu alebo štandardu",
+    "Exkluzívny jedálenský kút v presklennej časti apartmánu s výhľadom na vodu",
+  ],
+  gallery: [
     {
       src: "/byt1_6.png",
       title: "Obývacia izba",
@@ -96,28 +149,22 @@ const apartment2Bed: Apartment = {
 };
 
 const apartment3Bed: Apartment = {
-  title: "3-izbová rezidencia",
-  price: "€235 000",
-  size: "95 m²",
+  title: "3-izbový apartmán",
+  price: "cena dohodou",
+  size: "od 62 m²",
   bedrooms: 3,
   bathrooms: 2,
-  available: 6,
-  floorPlan: "/byt2_3poschodie_pôdorys_page-0001.jpg",
+  available: 8,
+  floorPlan: "/byt2_3.png",
   features: [
-    "Priestranná obývacia zóna",
-    "Hlavná spálňa s en-suite",
-    "Vyhradený pracovný kútik",
-    "Balík prémiových spotrebičov",
-    "Dva súkromné balkóny",
-    "Priestor na vínotéku",
+    "Balkón",
+    "Podlahové teplovodné kúrenie",
+    "Tepelné čerpadlo",
+    "Centrálna rekuperácia pre apartmán",
+    "Možnosť aj  2 kúpeľní",
+    "Samostatné WC alebo WC v druhej kúpeľni",
   ],
   gallery: [
-    {
-      src: "/byt2_3.png",
-      title: "Kuchyňa a obývačka",
-      desktopSpan: "col-span-2 row-span-2",
-      mobileSpan: "col-span-3",
-    },
     {
       src: "/byt2_6.png",
       title: "Spálňa s office",
@@ -191,7 +238,6 @@ export default function Page() {
             data-aos="fade-right"
             data-aos-delay="100"
           >
-            <Home className="w-6 h-6 text-white" />
             <h1 className="text-lg font-medium text-white">
               Rezidencia Lifestar
             </h1>
@@ -207,51 +253,63 @@ export default function Page() {
 
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16" data-aos="fade-up">
-            <h2 className="text-4xl font-light text-black mb-6">
-              Prémiové bývanie pri vode
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Zažite moderný luxus v našich premyslene navrhnutých apartmánoch s
-              panoramatickým výhľadom na jazero, prémiovými povrchmi a modernými
-              vybaveniami v pokojnom prostredí pri vode.
-            </p>
-          </div>
+          <div className="grid grid-cols-12 gap-6">
+            <div
+              className="col-span-12 md:col-span-6 lg:col-span-4"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div className="bg-white border border-gray-200 p-8 rounded-2xl h-full hover:border-black transition-colors duration-300">
+                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6">
+                  <Home className="w-8 h-8 text-black" />
+                </div>
+                <h4 className="text-xl font-medium text-black mb-4">
+                  Tí, čo hľadajú druhý domov pri vode
+                </h4>
+                <p className="text-gray-600 leading-relaxed">
+                  Zákazníci, ktorí chcú mať rekreačné bývanie v príjemnom
+                  prostredí
+                </p>
+              </div>
+            </div>
 
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
             <div
-              className="text-center"
+              className="col-span-12 md:col-span-6 lg:col-span-5"
               data-aos="fade-up"
-              data-aos-delay="100"
+              data-aos-delay="200"
             >
-              <div className="text-3xl font-light text-black mb-2">11</div>
-              <div className="text-gray-600">Prémiové apartmány</div>
+              <div className="bg-white border border-gray-200 p-8 rounded-2xl h-full hover:border-black transition-colors duration-300">
+                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6">
+                  <Users className="w-8 h-8 text-black" />
+                </div>
+                <h4 className="text-xl font-medium mb-4">
+                  Investori so záujmom o rekreačné byty na predaj/prenájom
+                </h4>
+                <p className="text-gray-600 leading-relaxed">
+                  Investori, ktorí hľadajú príležitosť na kúpu a prenájom
+                  rekreačných nehnuteľností
+                </p>
+              </div>
             </div>
+
             <div
-              className="text-center"
+              className="col-span-12 lg:col-span-3"
               data-aos="fade-up"
-              data-aos-delay="100"
+              data-aos-delay="300"
             >
-              <div className="text-3xl font-light text-black mb-2">2–3</div>
-              <div className="text-gray-600">Možnosti spální</div>
-            </div>
-            <div
-              className="text-center"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div className="text-3xl font-light text-black mb-2">2025</div>
-              <div className="text-gray-600">Rok dokončenia</div>
+              <div className="bg-white border border-gray-200 p-8 rounded-2xl h-full hover:border-black transition-colors duration-300">
+                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6">
+                  <Heart className="w-8 h-8 text-black" />
+                </div>
+                <h4 className="text-lg font-medium text-black mb-4">
+                  Rodiny, ktoré uprednostňujú pokojné bývanie
+                </h4>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Alternatívu k rušnému mestskému životu
+                </p>
+              </div>
             </div>
           </div>
-          <img
-            data-aos="fade-left"
-            data-aos-delay="100"
-            loading="lazy"
-            src="/sirava2.jpg"
-            alt="sirava"
-            className="w-full h-full object-cover rounded-lg"
-          />
         </div>
       </section>
 
@@ -317,12 +375,20 @@ export default function Page() {
 
       <section className="bg-white">
         <ApartmentShowcase
+          reverse={true}
+          openLightbox={openLightbox}
+          apartment={apartment25Bed}
+        />
+      </section>
+
+      <section className="bg-gray-50">
+        <ApartmentShowcase
           openLightbox={openLightbox}
           apartment={apartment3Bed}
         />
       </section>
 
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16" data-aos="fade-up">
             <h2 className="text-4xl font-light text-black mb-6">
@@ -391,7 +457,7 @@ export default function Page() {
         ></iframe>
       </section>
 
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gray-50">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16" data-aos="fade-up">
             <h2 className="text-4xl font-light text-black mb-6">
@@ -517,7 +583,10 @@ export default function Page() {
             <div>
               <h3 className="text-xl font-light mb-6">Developer</h3>
               <div className="space-y-2">
-                <p className="font-medium">Premium Developments Ltd.</p>
+                <p className="font-medium">
+                  {" "}
+                  © 2025 Slovak Techno Export - Plastymat s.r.o.
+                </p>
                 <p className="text-gray-400">
                   Licencovaný developer a generálny dodávateľ
                 </p>

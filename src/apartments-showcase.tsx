@@ -34,12 +34,14 @@ export interface Apartment {
 
 interface ApartmentShowcaseProps {
   apartment: Apartment;
+  reverse?: boolean;
   openLightbox: (images: ImageInfo[], index: number) => void;
 }
 
 export default function ApartmentShowcase({
   apartment,
   openLightbox,
+  reverse,
 }: ApartmentShowcaseProps) {
   const handleClick = useCallback(
     (index: number) => openLightbox(apartment.gallery, index),
@@ -53,8 +55,7 @@ export default function ApartmentShowcase({
           <h2 className="text-4xl text-black mb-6">{apartment.title}</h2>
           <div className="flex justify-center items-center gap-4 mb-8">
             <div className="flex flex-col-reverse sm:flex-row items-center gap-1">
-              <div className="text-sm text-gray-600 mt-2">Od</div>
-              <div className="text-3xl font-light text-black">
+              <div className="text-2xl font-light text-black">
                 {apartment.price}
               </div>
             </div>
@@ -72,12 +73,6 @@ export default function ApartmentShowcase({
               <span className="text-gray-600">{apartment.bedrooms} Izby</span>
             </div>
             <div className="flex items-center gap-2">
-              <Bath className="w-5 h-5 text-gray-600" />
-              <span className="text-gray-600">
-                {apartment.bathrooms} Kúpeľne
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
               <Square className="w-5 h-5 text-gray-600" />
               <span className="text-gray-600">{apartment.size}</span>
             </div>
@@ -86,21 +81,17 @@ export default function ApartmentShowcase({
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div
-            className="lg:col-span-2"
-            data-aos="fade-right"
+            className={`col-star-1 ${
+              reverse ? "lg:col-start-2" : "lg:col-start-1"
+            } lg:col-span-2`}
+            data-aos={`${reverse ? "fade-left" : "fade-right"}`}
             data-aos-delay="100"
           >
             <div className="bg-white rounded-lg p-8 shadow-sm border h-full">
-              <h3 className="text-2xl font-light text-black mb-6">Pôdorys</h3>
-              <div className="relative mb-6">
-                <img
-                  loading="lazy"
-                  src={apartment.floorPlan || "/placeholder.svg"}
-                  alt={`${apartment.title} Floor Plan`}
-                  className="object-cover rounded-lg w-full h-full"
-                />
+              <div className="flex justify-between mb-6">
+                <h3 className="text-2xl font-light text-black">Pôdorys</h3>
                 <Link
-                  className="absolute right-0 top-0 flex items-center gap-1"
+                  className="flex items-center gap-1"
                   href="/lifestar-podorys.pdf"
                   target="_blank"
                   passHref={true}
@@ -110,6 +101,14 @@ export default function ApartmentShowcase({
                     <ExternalLink size={16} />
                   </Button>
                 </Link>
+              </div>
+              <div className="relative mb-6">
+                <img
+                  loading="lazy"
+                  src={apartment.floorPlan || "/placeholder.svg"}
+                  alt={`${apartment.title} Floor Plan`}
+                  className="object-cover rounded-lg w-full h-full"
+                />
               </div>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
@@ -122,7 +121,7 @@ export default function ApartmentShowcase({
                 <div>
                   <Users className="w-5 h-5 mx-auto mb-2 text-gray-600" />
                   <div className="text-sm font-medium text-black">
-                    {apartment.bedrooms + apartment.bathrooms}
+                    {apartment.bedrooms}
                   </div>
                   <div className="text-xs text-gray-600">Spolu izieb</div>
                 </div>
@@ -138,8 +137,10 @@ export default function ApartmentShowcase({
           </div>
 
           <div
-            className="lg:col-span-1"
-            data-aos="fade-left"
+            className={`row-start-1 col-start-1 ${
+              reverse ? "lg:col-start-1" : "lg:col-start-3"
+            } col-span-1`}
+            data-aos={`${reverse ? "fade-right" : "fade-left"}`}
             data-aos-delay="100"
           >
             <div className="bg-white rounded-lg p-8 shadow-sm border h-full flex flex-col justify-between">

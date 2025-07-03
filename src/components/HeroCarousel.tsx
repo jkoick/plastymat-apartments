@@ -7,29 +7,24 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const HeroCarousel = memo(function HeroCarousel() {
   const slides = [
     {
-      src: "/byt1_3.png",
+      src: "/sirava1.jpg",
       title: "Moderné obytné priestory",
       subtitle: "Otvorený koncept s panoramatickými výhľadmi",
     },
     {
-      src: "/byt2_1.png",
+      src: "/sirava2.jpg",
       title: "Súčasná kuchyňa",
       subtitle: "Prémiové spotrebiče a povrchové úpravy",
     },
     {
-      src: "/byt1_6.png",
+      src: "/sirava3.jpg",
       title: "Pokojné spálne",
       subtitle: "Minimalistický dizajn pre maximálne pohodlie",
     },
     {
-      src: "/byt1_5.png",
+      src: "/sirava4.jpg",
       title: "Integrovaný pracovný priestor",
       subtitle: "Vstavané riešenia pre moderné bývanie",
-    },
-    {
-      src: "/byt1_7.png",
-      title: "Luxusné kúpeľne",
-      subtitle: "Wellness vybavenie a prémiové prvky",
     },
   ];
 
