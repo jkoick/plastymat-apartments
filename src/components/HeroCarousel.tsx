@@ -3,28 +3,29 @@
 import { useState, useEffect, useRef, memo } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const HeroCarousel = memo(function HeroCarousel() {
   const slides = [
     {
       src: "/sirava1.jpg",
-      title: "Moderné obytné priestory",
-      subtitle: "Otvorený koncept s panoramatickými výhľadmi",
+      title: "Architektonická elegancia",
+      subtitle: "Moderné línie a jedinečný dizajn fasády",
     },
     {
       src: "/sirava2.jpg",
-      title: "Súčasná kuchyňa",
-      subtitle: "Prémiové spotrebiče a povrchové úpravy",
+      title: "Rezidencia s panorámou",
+      subtitle: "Terasové bývanie s výhľadom na prírodu a rekreáciu",
     },
     {
       src: "/sirava3.jpg",
-      title: "Pokojné spálne",
-      subtitle: "Minimalistický dizajn pre maximálne pohodlie",
+      title: "Relax a pohoda pri bazéne",
+      subtitle: "Luxusné exteriérové zóny pre oddych a spoločné chvíle",
     },
     {
       src: "/sirava4.jpg",
-      title: "Integrovaný pracovný priestor",
-      subtitle: "Vstavané riešenia pre moderné bývanie",
+      title: "Komfort pre rodiny i investorov",
+      subtitle: "Komplexné vybavenie, detské ihrisko a súkromie",
     },
   ];
 
@@ -89,12 +90,35 @@ const HeroCarousel = memo(function HeroCarousel() {
           </p>
           <p className="text-lg mb-12 opacity-80">{slides[index].subtitle}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary">
-              <a href="#apartmany">Zobraziť byty</a>
-            </Button>
-            <Button size="lg" variant="default">
-              <a href="#kontakt">Naplánovať obhliadku</a>
-            </Button>
+            <Link
+              className="flex items-center gap-1"
+              href="#apartmany"
+              passHref={true}
+            >
+              <Button
+                className="cursor-pointer"
+                size="lg"
+                variant="secondary"
+                type="button"
+              >
+                <span>Zobraziť byty</span>
+              </Button>
+            </Link>
+
+            <Link
+              className="flex items-center gap-1"
+              href="#kontakt"
+              passHref={true}
+            >
+              <Button
+                className="cursor-pointer"
+                size="lg"
+                variant="default"
+                type="button"
+              >
+                <span>Naplánovať obhliadku</span>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -96,7 +96,7 @@ export default function ApartmentShowcase({
                   target="_blank"
                   passHref={true}
                 >
-                  <Button>
+                  <Button className="cursor-pointer">
                     Pozrieť plán
                     <ExternalLink size={16} />
                   </Button>
@@ -157,9 +157,21 @@ export default function ApartmentShowcase({
                   ))}
                 </div>
               </div>
-              <Button className="w-full mt-6 bg-black hover:bg-gray-800 text-white">
-                <a href="#kontakt">Naplánovať obhliadku</a>
-              </Button>
+
+              <Link
+                className="flex items-center gap-1"
+                href="#kontakt"
+                passHref={true}
+              >
+                <Button
+                  className="cursor-pointer w-full mt-6 bg-black hover:bg-gray-800 text-white"
+                  size="lg"
+                  variant="default"
+                  type="button"
+                >
+                  <span>Naplánovať obhliadku</span>
+                </Button>
+              </Link>
             </div>
           </div>
 

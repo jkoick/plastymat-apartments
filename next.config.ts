@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import path from "path";
 
 const nextConfig: NextConfig = {
   webpack(config) {
@@ -10,11 +9,8 @@ const nextConfig: NextConfig = {
     });
     return config;
   },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
-    },
-  },
+  output: "export",
+  trailingSlash: true,
 };
 
 export default nextConfig;

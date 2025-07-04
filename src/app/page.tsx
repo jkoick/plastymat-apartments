@@ -1,8 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import * as yup from "yup";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import emailjs from "@emailjs/browser";
 import {
   Home,
   Phone,
@@ -34,6 +38,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Lightbox from "@/components/Lightbox";
 import HeroCarousel from "@/components/HeroCarousel";
 import ApartmentShowcase, { Apartment } from "@/apartments-showcase";
+import Link from "next/link";
+
+const schema = yup.object({
+  name: yup.string().required("Meno a priezvisko je povinné"),
+  email: yup
+    .string()
+    .email("Neplatná e-mailová adresa")
+    .required("E-mailová adresa je povinná"),
+  phone: yup
+    .string()
+    .matches(/^\+?\d{9,15}$/, "Neplatné telefónne číslo")
+    .required("Telefónne číslo je povinné"),
+  apartmentType: yup.string().required("Zvoľte typ apartmánu"),
+  privacy: yup.boolean().oneOf([true], "Súhlas je povinný"),
+  message: yup.string().notRequired(),
+});
 
 const apartment2Bed: Apartment = {
   title: "2-izbový apartmán",
@@ -192,7 +212,165 @@ const apartment3Bed: Apartment = {
   ],
 };
 
+const Roadmap = () => {
+  const roadmapItems = [
+    {
+      phase: "1. etapa",
+      title: "Rekonštrukcia apartmánov",
+      startDate: "01/2025",
+      endDate: "12/2025",
+      description: "Začiatok rekonštrukcie apartmánov",
+      milestone: "Spustenie rezervácií apartmánov 9/2025",
+      status: "upcoming",
+    },
+    {
+      phase: "2. etapa",
+      title: "Kaviareň, reštaurácia, wellness",
+      startDate: "01/2026",
+      endDate: "12/2026",
+      description: "Zahájenie výstavby spoločenských priestorov",
+      milestone: "Kompletné vybavenie wellness centra",
+      status: "planned",
+    },
+    {
+      phase: "3. etapa",
+      title: "Spevnené plochy a vonkajšie úpravy",
+      startDate: "01/2027",
+      endDate: "12/2027",
+      description: "Finalizácia exteriérových úprav",
+      milestone: "Dokončenie celého projektu",
+      status: "planned",
+    },
+  ];
+  return (
+    <div className="relative">
+      <div className="sm:absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+
+      <div className="space-y-6 sm:space-y-12">
+        {roadmapItems.map((item, index) => (
+          <div
+            key={index}
+            className="relative flex items-start gap-8"
+            data-aos="fade-up"
+            data-aos-delay={index * 200}
+          >
+            <div className="relative z-10 w-16 h-16 bg-black rounded-full hidden sm:flex items-center justify-center flex-shrink-0">
+              <span className="text-white font-medium text-sm">
+                {item.phase.split(".")[0]}
+              </span>
+            </div>
+            <div className="flex-1 bg-white rounded-lg p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+                <div>
+                  <div className="flex gap-2 sm:block">
+                    <span className="font-medium text-xl block sm:hidden">
+                      {item.phase.split(".")[0]}
+                    </span>
+                    <h3 className="text-xl font-medium text-black mb-2">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <p className="text-gray-600">{item.description}</p>
+                </div>
+                <div className="text-right lg:text-left lg:min-w-[200px] hidden sm:block">
+                  <div className="text-2xl font-light text-black">
+                    {item.startDate}
+                  </div>
+                  <div className="text-sm text-gray-500">Začiatok</div>
+                </div>
+              </div>
+
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div className="flex-1">
+                  <div className="text-sm text-gray-600 mb-2">
+                    Kľúčový míľnik:
+                  </div>
+                  <div className="text-black font-medium">{item.milestone}</div>
+                </div>
+                <div className="flex mt-6 sm:block justify-between">
+                  <div className="text-left lg:text-left lg:min-w-[200px] sm:hidden block">
+                    <div className="text-2xl font-light text-black">
+                      {item.startDate}
+                    </div>
+                    <div className="text-sm text-gray-500">Začiatok</div>
+                  </div>
+                  <div className="text-right lg:text-left lg:min-w-[200px]">
+                    <div className="text-2xl font-light text-black">
+                      {item.endDate}
+                    </div>
+                    <div className="text-sm text-gray-500">Ukončenie</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className={`h-2 rounded-full transition-all duration-1000 ${
+                      item.status === "upcoming"
+                        ? "bg-black w-3/4"
+                        : item.status === "planned"
+                        ? "bg-gray-400 w-0"
+                        : "bg-black w-full"
+                    }`}
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export default function Page() {
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">(
+    "idle"
+  );
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      apartmentType: "",
+      privacy: false,
+      message: "",
+    },
+  });
+
+  const sendEmail = async () => {
+    if (!formRef.current) return;
+    setStatus("loading");
+    try {
+      await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        formRef.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+      setStatus("ok");
+      formRef.current.reset();
+      reset();
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  const onSubmit = async () => {
+    await sendEmail();
+  };
+
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImages, setLightboxImages] = useState<
     { src: string; title: string }[]
@@ -242,10 +420,20 @@ export default function Page() {
               Rezidencia Lifestar
             </h1>
           </div>
-          <Button variant="ghost" className="text-white sm:border ">
-            <Phone className="w-4 h-4 sm:mr-2" />
-            <span className="sm:block hidden">Kontakt</span>
-          </Button>
+          <Link
+            className="flex items-center gap-1"
+            href="#kontakt"
+            passHref={true}
+          >
+            <Button
+              variant="ghost"
+              type="button"
+              className="text-white sm:border cursor-pointer"
+            >
+              <Phone className="w-4 h-4 sm:mr-2" />
+              <span className="sm:block hidden">Kontakt</span>
+            </Button>
+          </Link>
         </div>
       </header>
 
@@ -310,6 +498,22 @@ export default function Page() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16" data-aos="fade-up">
+            <h2 className="text-4xl font-light text-black mb-6">
+              Harmonogram projektu
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Sledujte pokrok našeho projektu od začiatku rekonštrukcie až po
+              úplné dokončenie všetkých etáp
+            </p>
+          </div>
+
+          <Roadmap />
         </div>
       </section>
 
@@ -457,7 +661,7 @@ export default function Page() {
         ></iframe>
       </section>
 
-      <section className="py-24 bg-gray-50">
+      <section id="kontakt" className="py-24 bg-gray-50">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16" data-aos="fade-up">
             <h2 className="text-4xl font-light text-black mb-6">
@@ -474,13 +678,26 @@ export default function Page() {
             data-aos-delay="100"
           >
             <CardContent className="p-8">
-              <form className="space-y-6">
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Label htmlFor="name" className="text-black">
                       Meno a priezvisko
                     </Label>
-                    <Input id="name" className="mt-2 border-gray-200" />
+                    <Input
+                      id="name"
+                      className="mt-2 border-gray-200"
+                      {...register("name")}
+                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.name.message as string}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="email" className="text-black">
@@ -490,7 +707,13 @@ export default function Page() {
                       id="email"
                       type="email"
                       className="mt-2 border-gray-200"
+                      {...register("email")}
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.email.message as string}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -499,26 +722,59 @@ export default function Page() {
                     <Label htmlFor="phone" className="text-black">
                       Telefónne číslo
                     </Label>
-                    <Input id="phone" className="mt-2 border-gray-200" />
+                    <Input
+                      id="phone"
+                      className="mt-2 border-gray-200"
+                      {...register("phone")}
+                    />
+                    {errors.phone && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.phone.message as string}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="apartment-type" className="text-black">
                       Záujem o apartmán
                     </Label>
-                    <Select>
-                      <SelectTrigger className="mt-2 border-gray-200">
-                        <SelectValue placeholder="Vyberte typ apartmánu" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="2-bedroom">
-                          2-izbový apartmán
-                        </SelectItem>
-                        <SelectItem value="3-bedroom">
-                          3-izbový apartmán
-                        </SelectItem>
-                        <SelectItem value="both">Oba typy</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Controller
+                      name="apartmentType"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger className="mt-2 border-gray-200">
+                            <SelectValue placeholder="Vyberte typ apartmánu" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="2-izbový apartmán">
+                              2-izbový apartmán
+                            </SelectItem>
+                            <SelectItem value="2.5-izbový apartmán">
+                              2.5-izbový apartmán
+                            </SelectItem>
+                            <SelectItem value="3-izbový apartmán">
+                              3-izbový apartmán
+                            </SelectItem>
+                            <SelectItem value="všetky typy apartmánov">
+                              všetky typy apartmánov
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                    <input
+                      type="hidden"
+                      name="apartment-type"
+                      value={watch("apartmentType")}
+                    />
+                    {errors.apartmentType && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.apartmentType.message as string}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -531,30 +787,59 @@ export default function Page() {
                     placeholder="Napíšte nám vaše požiadavky"
                     rows={4}
                     className="mt-2 border-gray-200"
+                    {...register("message")}
                   />
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="privacy" />
-                  <Label htmlFor="privacy" className="text-sm text-gray-600">
-                    Súhlasím so spracovaním osobných údajov podľa zásad ochrany
-                    osobných údajov
-                  </Label>
-                </div>
+                <Controller
+                  name="privacy"
+                  control={control}
+                  render={({ field }) => (
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="privacy"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <Label
+                        htmlFor="privacy"
+                        className="text-sm text-gray-600"
+                      >
+                        Súhlasím so spracovaním osobných údajov podľa zásad
+                        ochrany osobných údajov
+                      </Label>
+                    </div>
+                  )}
+                />
+                {errors.privacy && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.privacy.message as string}
+                  </p>
+                )}
 
                 <Button
+                  type="submit"
                   size="lg"
-                  className="w-full bg-black hover:bg-gray-800 text-white"
+                  className="w-full bg-black hover:bg-gray-800 text-white cursor-pointer"
                 >
-                  Odoslať dopyt
+                  {status === "loading"
+                    ? "Odosielam..."
+                    : status === "ok"
+                    ? "Odoslané"
+                    : "Odoslať dopyt"}
                 </Button>
+                {status === "error" && (
+                  <p className="text-red-500 text-sm text-center mt-2">
+                    Niečo sa pokazilo. Skúste znova.
+                  </p>
+                )}
               </form>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      <footer id="kontakt" className="py-16 bg-black text-white">
+      <footer className="py-16 bg-black text-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12" data-aos="fade-up">
             <div>
