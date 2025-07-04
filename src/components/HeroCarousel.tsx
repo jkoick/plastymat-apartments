@@ -89,9 +89,9 @@ const HeroCarousel = memo(function HeroCarousel() {
             {slides[index].title}
           </p>
           <p className="text-lg mb-12 opacity-80">{slides[index].subtitle}</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center w-full align-middle">
             <Link
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 mx-auto sm:mx-0"
               href="#apartmany"
               passHref={true}
             >
@@ -106,7 +106,7 @@ const HeroCarousel = memo(function HeroCarousel() {
             </Link>
 
             <Link
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 mx-auto sm:mx-0"
               href="#kontakt"
               passHref={true}
             >
