@@ -39,6 +39,7 @@ import Lightbox from "@/components/Lightbox";
 import HeroCarousel from "@/components/HeroCarousel";
 import ApartmentShowcase, { Apartment } from "@/apartments-showcase";
 import Link from "next/link";
+import { trackFormSubmission, trackContactClick } from "@/components/GoogleAnalytics";
 
 const schema = yup.object({
   name: yup.string().required("Meno a priezvisko je povinné"),
@@ -379,7 +380,9 @@ export default function Page() {
     }
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: any) => {
+    // Track form submission
+    trackFormSubmission(data.apartmentType || "unknown");
     await sendEmail();
   };
 
@@ -859,11 +862,19 @@ export default function Page() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5" />
-                  <a href="tel:+421905233983">+421 905 233 983</a>
+                  <a 
+                    href="tel:+421905233983"
+                    onClick={() => trackContactClick("phone")}
+                  >
+                    +421 905 233 983
+                  </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5" />
-                  <a href="mailto:lifestar@plastymat.sk">
+                  <a 
+                    href="mailto:lifestar@plastymat.sk"
+                    onClick={() => trackContactClick("email")}
+                  >
                     lifestar@plastymat.sk
                   </a>
                 </div>
@@ -902,6 +913,10 @@ export default function Page() {
             <p className="text-gray-400">
               © 2025 Slovak Techno Export - Plastymat s.r.o. Všetky práva
               vyhradené.
+            </p>
+            <p className="text-gray-500 text-sm mt-2">
+              Táto stránka používa Google Analytics na analýzu návštevnosti. 
+              Pokračovaním v prehliadaní súhlasíte s používaním cookies.
             </p>
           </div>
         </div>

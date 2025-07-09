@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useCallback } from "react";
 import Link from "next/link";
+import { trackImageView, trackFloorPlanDownload, trackApartmentInterest } from "@/components/GoogleAnalytics";
 
 type ImageInfo = {
   src: string;
@@ -44,8 +45,12 @@ export default function ApartmentShowcase({
   reverse,
 }: ApartmentShowcaseProps) {
   const handleClick = useCallback(
-    (index: number) => openLightbox(apartment.gallery, index),
-    [apartment.gallery, openLightbox]
+    (index: number) => {
+      const image = apartment.gallery[index];
+      trackImageView(image.title, apartment.title);
+      openLightbox(apartment.gallery, index);
+    },
+    [apartment.gallery, apartment.title, openLightbox]
   );
 
   return (
@@ -96,7 +101,10 @@ export default function ApartmentShowcase({
                   target="_blank"
                   passHref={true}
                 >
-                  <Button className="cursor-pointer">
+                  <Button 
+                    className="cursor-pointer"
+                    onClick={() => trackFloorPlanDownload(apartment.title)}
+                  >
                     Pozrieť plán
                     <ExternalLink size={16} />
                   </Button>
@@ -168,6 +176,7 @@ export default function ApartmentShowcase({
                   size="lg"
                   variant="default"
                   type="button"
+                  onClick={() => trackApartmentInterest(apartment.title)}
                 >
                   <span>Naplánovať obhliadku</span>
                 </Button>
