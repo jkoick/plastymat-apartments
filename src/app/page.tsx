@@ -62,7 +62,7 @@ const apartment2Bed: Apartment = {
   bedrooms: 2,
   bathrooms: 1,
   available: 4,
-  floorPlan: "/byt1_3.png",
+  floorPlan: "/byt1/byt1_3.png",
   features: [
     "Balkón",
     "Podlahové teplovodné kúrenie",
@@ -73,37 +73,37 @@ const apartment2Bed: Apartment = {
   ],
   gallery: [
     {
-      src: "/byt1_6.png",
+      src: "/byt1/byt1_6.png",
       title: "Obývacia izba",
       desktopSpan: "col-span-2 row-span-2",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt1_7.png",
+      src: "/byt1/byt1_7.png",
       title: "Kúpeľňa",
       desktopSpan: "col-span-1 row-span-1",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt1_1.png",
+      src: "/byt1/byt1_1.png",
       title: "Hlavná spálňa",
       desktopSpan: "col-span-1 row-span-1",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt1_5.png",
+      src: "/byt1/byt1_5.png",
       title: "Spálňa s výhľadom",
       desktopSpan: "col-span-2 row-span-1",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt1_4.png",
+      src: "/byt1/byt1_4.png",
       title: "Chodba",
       desktopSpan: "col-span-1 row-span-1",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt1_8.png",
+      src: "/byt1/byt1_8.png",
       title: "Kúpeľňa",
       desktopSpan: "col-span-3 row-span-1",
       mobileSpan: "col-span-3",
@@ -118,7 +118,7 @@ const apartment25Bed: Apartment = {
   bedrooms: 2,
   bathrooms: 1,
   available: 3,
-  floorPlan: "/byt1_3.png",
+  floorPlan: "/byt3/bytC4_3.png",
   features: [
     "Balkón",
     "Podlahové teplovodné kúrenie",
@@ -130,37 +130,49 @@ const apartment25Bed: Apartment = {
   ],
   gallery: [
     {
-      src: "/byt1_6.png",
+      src: "/byt3/bytC4_1.png",
+      title: "Obývacia izba ",
+      desktopSpan: "col-span-2 row-span-2",
+      mobileSpan: "col-span-3",
+    },
+    {
+      src: "/byt3/bytC4_2.png",
       title: "Obývacia izba",
       desktopSpan: "col-span-2 row-span-2",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt1_7.png",
-      title: "Kúpeľňa",
-      desktopSpan: "col-span-1 row-span-1",
-      mobileSpan: "col-span-3",
-    },
-    {
-      src: "/byt1_1.png",
+      src: "/byt3/bytC4_4.png",
       title: "Hlavná spálňa",
-      desktopSpan: "col-span-1 row-span-1",
-      mobileSpan: "col-span-3",
-    },
-    {
-      src: "/byt1_5.png",
-      title: "Spálňa s výhľadom",
       desktopSpan: "col-span-2 row-span-1",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt1_4.png",
-      title: "Chodba",
+      src: "/byt3/bytC4_6.png",
+      title: "Spálňa",
       desktopSpan: "col-span-1 row-span-1",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt1_8.png",
+      src: "/byt3/bytC4_7.png",
+      title: "Spálňa",
+      desktopSpan: "col-span-1 row-span-1",
+      mobileSpan: "col-span-3",
+    },
+    {
+      src: "/byt3/bytC4_8.png",
+      title: "Kúpeľňa",
+      desktopSpan: "col-span-3 row-span-1",
+      mobileSpan: "col-span-3",
+    },
+    {
+      src: "/byt3/bytC4_9.png",
+      title: "Chodba",
+      desktopSpan: "col-span-3 row-span-1",
+      mobileSpan: "col-span-3",
+    },
+    {
+      src: "/byt3/bytC4_10.png",
       title: "Kúpeľňa",
       desktopSpan: "col-span-3 row-span-1",
       mobileSpan: "col-span-3",
@@ -175,7 +187,7 @@ const apartment3Bed: Apartment = {
   bedrooms: 3,
   bathrooms: 2,
   available: 8,
-  floorPlan: "/byt2_3.png",
+  floorPlan: "/byt2/byt2_3.png",
   features: [
     "Balkón",
     "Podlahové teplovodné kúrenie",
@@ -186,25 +198,25 @@ const apartment3Bed: Apartment = {
   ],
   gallery: [
     {
-      src: "/byt2_6.png",
+      src: "/byt2/byt2_6.png",
       title: "Spálňa s office",
       desktopSpan: "col-span-1 row-span-1",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt2_8.png",
+      src: "/byt2/byt2_8.png",
       title: "Hlavná kúpeľňa",
       desktopSpan: "col-span-1 row-span-2",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt2_10.png",
+      src: "/byt2/byt2_10.png",
       title: "Hlavná spálňa",
       desktopSpan: "col-span-2 row-span-1",
       mobileSpan: "col-span-3",
     },
     {
-      src: "/byt2_9.png",
+      src: "/byt2/byt2_9.png",
       title: "Vstupná chodba",
       desktopSpan: "col-span-1 row-span-1",
       mobileSpan: "col-span-3",
@@ -508,7 +520,7 @@ export default function Page() {
               Harmonogram projektu
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Sledujte pokrok našeho projektu od začiatku rekonštrukcie až po
+              Sledujte pokrok nášho projektu od začiatku rekonštrukcie až po
               úplné dokončenie všetkých etáp
             </p>
           </div>
